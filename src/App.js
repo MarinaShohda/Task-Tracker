@@ -44,7 +44,8 @@ function App() {
     <div className="container">
       <Header onAdd={onAdd} showForm={showForm}  />
       {showForm && <AddTask updateTasks={updateTasks}/> }
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show'}
+      <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
+      {/* {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show'} */}
     </div>
   );
 }
