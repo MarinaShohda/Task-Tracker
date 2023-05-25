@@ -1,21 +1,24 @@
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 function App() {
-  const [tasks, setTasks] = useState(() => {
-    const localValue = localStorage.getItem('ITEMS')
-    return JSON.parse(localValue)
-  })
-
-
-  useEffect(() => {
-    localStorage.setItem('ITEMS', JSON.stringify(tasks))
-  }, [tasks])
-
-
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      text: 'Drums class',
+      day: 'Jun 12th at 2:00',
+      reminder: false,
+  },
+  {
+      id: 2,
+      text: 'Cinema with friends',
+      day: 'Jun 12th at 7:00',
+      reminder: true,
+  },
+]);
   const [showForm, setShowForm] = useState(false);
 
   // toggling form
@@ -29,6 +32,7 @@ function App() {
     const newTask = {id, ...task};
     setTasks([...tasks, newTask])
   }
+
   // delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id))
@@ -44,8 +48,7 @@ function App() {
     <div className="container">
       <Header onAdd={onAdd} showForm={showForm}  />
       {showForm && <AddTask updateTasks={updateTasks}/> }
-      <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
-      {/* {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show'} */}
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show'}
     </div>
   );
 }
